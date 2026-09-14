@@ -1,0 +1,59 @@
+/* Botões — o azul é o elemento de assinatura, usado com intenção. */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: var(--fonte-corpo);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.95rem 1.75rem;
+  border-radius: var(--raio-pill);
+  transition: transform var(--rapida), box-shadow var(--padrao), background var(--padrao), border-color var(--padrao);
+  white-space: nowrap;
+}
+
+.btn--primario {
+  background: var(--cor-azul);
+  color: var(--cor-branco);
+  box-shadow: var(--sombra-azul);
+}
+
+.btn--primario:hover,
+.btn--primario:focus-visible {
+  background: var(--cor-azul-hover);
+  transform: translateY(-2px);
+}
+
+.btn--secundario {
+  background: transparent;
+  color: var(--cor-branco);
+  border: 1.5px solid var(--cor-borda);
+}
+
+.btn--secundario:hover,
+.btn--secundario:focus-visible {
+  border-color: var(--cor-azul-claro);
+  color: var(--cor-azul-claro);
+  transform: translateY(-2px);
+}
+
+.btn--grande {
+  padding: 1.15rem 2.25rem;
+  font-size: 1.05rem;
+}
+
+.btn--bloco {
+  width: 100%;
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.grupo-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}

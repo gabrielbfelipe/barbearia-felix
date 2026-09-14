@@ -1,0 +1,90 @@
+/* Footer — limpo, links, contato. */
+
+.footer {
+  padding-block: var(--espaco-xl) calc(var(--espaco-lg) + 70px);
+  border-top: 1px solid var(--cor-borda);
+  background: var(--cor-preto-2);
+}
+
+@media (min-width: 1024px) {
+  .footer {
+    padding-bottom: var(--espaco-lg);
+  }
+}
+
+.footer__topo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espaco-lg);
+}
+
+@media (min-width: 768px) {
+  .footer__topo {
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+    gap: var(--espaco-md);
+  }
+}
+
+.footer__marca {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.footer__marca img {
+  height: 38px;
+  width: auto;
+}
+
+.footer__marca-texto {
+  font-family: var(--fonte-display);
+  font-weight: 800;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.footer__slogan {
+  margin-top: 0.75rem;
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+  max-width: 26ch;
+}
+
+.footer__col h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--cor-texto-fraco);
+  margin-bottom: 0.9rem;
+}
+
+.footer__col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer__col a,
+.footer__col address {
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+  font-style: normal;
+  transition: color var(--rapida);
+}
+
+.footer__col a:hover,
+.footer__col a:focus-visible {
+  color: var(--cor-azul-claro);
+}
+
+.footer__base {
+  margin-top: var(--espaco-xl);
+  padding-top: var(--espaco-md);
+  border-top: 1px solid var(--cor-borda);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--cor-texto-fraco);
+}

@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>The Felix Barbearia | Barbearia em Araraquara - SP</title>
+    <meta
+      name="description"
+      content="Barbearia em Araraquara/SP. Corte masculino, barba, sobrancelha, pigmentação e combos a partir de R$ 15. Nota 5,0 no Booksy. Agende online 24h."
+    />
+    <link rel="canonical" href="https://the-felix-barbearia.vercel.app/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="The Felix Barbearia" />
+    <meta name="geo.region" content="BR-SP" />
+    <meta name="geo.placename" content="Araraquara" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="business.business" />
+    <meta property="og:site_name" content="The Felix Barbearia" />
+    <meta property="og:title" content="The Felix Barbearia | Barbearia em Araraquara - SP" />
+    <meta
+      property="og:description"
+      content="Corte masculino, barba, sobrancelha e combos em Araraquara/SP. Nota 5,0 no Booksy. Agende seu horário online."
+    />
+    <meta property="og:image" content="https://the-felix-barbearia.vercel.app/assets/images/og/og-the-felix.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Logotipo da The Felix Barbearia" />
+    <meta property="og:url" content="https://the-felix-barbearia.vercel.app/" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Felix Barbearia | Barbearia em Araraquara - SP" />
+    <meta
+      name="twitter:description"
+      content="Corte masculino, barba, sobrancelha e combos em Araraquara/SP. Nota 5,0 no Booksy."
+    />
+    <meta name="twitter:image" content="https://the-felix-barbearia.vercel.app/assets/images/og/og-the-felix.jpg" />
+
+    <!-- Ícones / manifest -->
+    <link rel="icon" href="assets/images/logo/icone-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="assets/images/logo/icone-192.png" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/images/logo/icone-180.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#08090B" />
+
+    <!-- Preconnect: fontes e o CDN das imagens provisórias -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+
+    <!-- Imagem do Hero: é o elemento de LCP, então vem escrita no HTML e
+         com preload para o navegador achá-la antes de executar o JS.
+         Trocar a foto aqui E em IMAGENS.hero no config.js. -->
+    <link rel="preload" as="image" fetchpriority="high"
+      href="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&fm=webp&q=70&w=1920" />
+
+    <!-- Archivo (display, com eixo de largura) + Inter (leitura).
+         Carregadas sem bloquear a renderização: sozinha, essa folha de estilo
+         segurava a primeira pintura por ~1s no mobile. -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..900&family=Inter:wght@400;500;600;700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..900&family=Inter:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
+
+    <!-- CSS: os módulos ficam em assets/css/ e o build.js junta todos em
+         felix.css. Um arquivo só em vez de 24 — cada um deles bloqueava a
+         renderização e custava ~1,8s no mobile. -->
+    <link rel="stylesheet" href="assets/css/felix.css" />
+
+    <!-- Crítico do preloader, inline para pintar antes do CSS externo chegar -->
+    <style>
+      body:not(.is-carregado) {
+        overflow: hidden;
+      }
+      .preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.75rem;
+        background: #08090b;
+      }
+    </style>
+
+    <!--
+      Dados estruturados — HairSalon (o schema.org não tem o tipo "BarberShop";
+      HairSalon é o subtipo correto de LocalBusiness e é o que o Google lê).
+
+      aggregateRating fica DE FORA de propósito: marcar a própria nota na
+      própria página é "self-serving review" pela política do Google, não gera
+      estrela no resultado e é a categoria de markup que mais toma ação
+      manual. Os 5,0 aparecem visualmente na página e as estrelas reais
+      continuam no Booksy e no Google Business Profile.
+
+      geo (latitude/longitude) só entra depois de pegar as coordenadas reais
+      no Google Maps — ver README.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://the-felix-barbearia.vercel.app/#website",
+            "url": "https://the-felix-barbearia.vercel.app/",
+            "name": "The Felix Barbearia",
+            "inLanguage": "pt-BR",
+            "publisher": { "@id": "https://the-felix-barbearia.vercel.app/#barbearia" }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://the-felix-barbearia.vercel.app/#webpage",
+            "url": "https://the-felix-barbearia.vercel.app/",
+            "name": "The Felix Barbearia | Barbearia em Araraquara - SP",
+            "description": "Barbearia em Araraquara/SP. Corte masculino, barba, sobrancelha, pigmentação e combos a partir de R$ 15. Agende online pelo Booksy.",
+            "isPartOf": { "@id": "https://the-felix-barbearia.vercel.app/#website" },
+            "about": { "@id": "https://the-felix-barbearia.vercel.app/#barbearia" },
+            "inLanguage": "pt-BR"
+          },
+          {
+            "@type": "HairSalon",
+            "@id": "https://the-felix-barbearia.vercel.app/#barbearia",
+            "name": "The Felix Barbearia",
+            "alternateName": "The Felix Barber",
+            "description": "Barbearia em Araraquara/SP especializada em corte masculino, barba, sobrancelha, pigmentação e combos.",
+            "url": "https://the-felix-barbearia.vercel.app/",
+            "logo": "https://the-felix-barbearia.vercel.app/assets/images/logo/icone-512.png",
+            "image": "https://the-felix-barbearia.vercel.app/assets/images/og/og-the-felix.jpg",
+            "telephone": "+5516997134439",
+            "priceRange": "R$ 15 - R$ 92",
+            "currenciesAccepted": "BRL",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Rua Gonçalves Dias, 367",
+              "addressLocality": "Araraquara",
+              "addressRegion": "SP",
+              "postalCode": "14801-290",
+              "addressCountry": "BR"
+            },
+            "areaServed": {
+              "@type": "City",
+              "name": "Araraquara"
+            },
+            "hasMap": "https://www.google.com/maps/dir/?api=1&destination=Rua+Gon%C3%A7alves+Dias,+367+-+Centro,+Araraquara+-+SP",
+            "sameAs": [
+              "https://www.instagram.com/thefelixbarbearia/",
+              "https://www.facebook.com/people/The-Felix-Barber/100083276293827/",
+              "https://booksy.com/pt-br/177714_the-felix-barbearia_barbearias_874135_araraquara"
+            ],
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Monday",
+                "opens": "14:00",
+                "closes": "19:30"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "09:00",
+                "closes": "20:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "09:00",
+                "closes": "18:00"
+              }
+            ],
+            "potentialAction": {
+              "@type": "ReserveAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://booksy.com/pt-br/177714_the-felix-barbearia_barbearias_874135_araraquara",
+                "inLanguage": "pt-BR",
+                "actionPlatform": [
+                  "http://schema.org/DesktopWebPlatform",
+                  "http://schema.org/MobileWebPlatform"
+                ]
+              },
+              "result": {
+                "@type": "Reservation",
+                "name": "Agendamento na The Felix Barbearia"
+              }
+            },
+            "employee": [
+              { "@type": "Person", "name": "Lucas Felix", "jobTitle": "Barbeiro" },
+              { "@type": "Person", "name": "Otavio Augusto", "jobTitle": "Barbeiro" },
+              { "@type": "Person", "name": "Carlos Eduardo", "jobTitle": "Barbeiro" }
+            ],
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Serviços da The Felix Barbearia",
+              "itemListElement": [
+                {
+                  "@type": "OfferCatalog",
+                  "name": "Cabelo",
+                  "itemListElement": [
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "45.00", "itemOffered": { "@type": "Service", "name": "Cabelo", "serviceType": "Corte de cabelo masculino" } },
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "20.00", "itemOffered": { "@type": "Service", "name": "Acabamento Pezinho" } },
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "30.00", "itemOffered": { "@type": "Service", "name": "Lateral / Side Cut" } },
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "30.00", "itemOffered": { "@type": "Service", "name": "Pigmentação de Cabelo" } }
+                  ]
+                },
+                {
+                  "@type": "OfferCatalog",
+                  "name": "Barba",
+                  "itemListElement": [
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "45.00", "itemOffered": { "@type": "Service", "name": "Barba", "serviceType": "Barba masculina" } },
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "25.00", "itemOffered": { "@type": "Service", "name": "Barba Express" } },
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "20.00", "itemOffered": { "@type": "Service", "name": "Pigmentação de Barba" } },
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "55.00", "itemOffered": { "@type": "Service", "name": "Barba + Acabamento Pezinho" } }
+                  ]
+                },
+                {
+                  "@type": "OfferCatalog",
+                  "name": "Combos",
+                  "itemListElement": [
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "80.00", "itemOffered": { "@type": "Service", "name": "Cabelo + Barba" } },
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "60.00", "itemOffered": { "@type": "Service", "name": "Cabelo + Sobrancelha" } },
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "92.00", "itemOffered": { "@type": "Service", "name": "Cabelo + Barba + Sobrancelha" } }
+                  ]
+                },
+                {
+                  "@type": "OfferCatalog",
+                  "name": "Estética",
+                  "itemListElement": [
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "15.00", "itemOffered": { "@type": "Service", "name": "Sobrancelha" } },
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "20.00", "itemOffered": { "@type": "Service", "name": "Hidratação" } },
+                    { "@type": "Offer", "priceCurrency": "BRL", "price": "18.00", "itemOffered": { "@type": "Service", "name": "Depilação Nasal" } }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://the-felix-barbearia.vercel.app/#faq",
+            "isPartOf": { "@id": "https://the-felix-barbearia.vercel.app/#webpage" },
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Preciso agendar ou posso chegar direto?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "O agendamento pelo Booksy garante o seu horário e evita espera. Você escolhe o serviço, o profissional e o horário em poucos toques, a qualquer hora do dia. Quem chega sem agendar é atendido conforme a disponibilidade do momento."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Quanto custa um corte na The Felix Barbearia?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "O corte de cabelo custa R$ 45 e leva cerca de 40 minutos. A barba também custa R$ 45. O combo cabelo e barba sai por R$ 80 e o combo completo com sobrancelha por R$ 92. Serviços de acabamento começam em R$ 15."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Onde fica a The Felix Barbearia?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A The Felix Barbearia fica na Rua Gonçalves Dias, 367, no Centro de Araraquara, São Paulo, CEP 14801-290."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Qual o horário de funcionamento?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Segunda-feira das 14h às 19h30, de terça a sexta-feira das 9h às 20h e aos sábados das 9h às 18h. Domingo não abrimos. O agendamento pelo Booksy fica disponível 24 horas por dia."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Posso escolher com qual barbeiro quero cortar?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Sim. A equipe é formada por Lucas Felix, Otavio Augusto e Carlos Eduardo, e você escolhe o profissional na hora de agendar pelo Booksy."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Vocês atendem quem nunca foi na barbearia?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Sim. Se você ainda não sabe qual corte combina com você, é só contar como costuma usar o cabelo que o barbeiro sugere o que funciona melhor para o seu tipo de fio e formato de rosto."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+    <!-- Preloader: fundo preto, logo, linha azul. Só na 1ª visita da sessão. -->
+    <div class="preloader" data-preloader>
+      <img
+        class="preloader__logo"
+        src="assets/images/logo/logo-the-felix-320.png"
+        alt="The Felix Barbearia"
+        width="320"
+        height="320"
+      />
+      <span class="preloader__linha"></span>
+    </div>
+
+    <!-- ================== HEADER ================== -->
+    <header class="header" data-header>
+      <div class="container header__inner">
+        <a class="header__logo" href="#inicio" aria-label="The Felix Barbearia, ir para o início">
+          <img
+            src="assets/images/logo/logo-the-felix-96.png"
+            alt=""
+            width="96"
+            height="96"
+            fetchpriority="high"
+          />
+          <span class="header__logo-texto">The Felix</span>
+        </a>
+
+        <nav class="header__nav" aria-label="Navegação principal">
+          <a class="header__link" href="#inicio">Início</a>
+          <a class="header__link" href="#sobre">A The Felix</a>
+          <a class="header__link" href="#servicos">Serviços</a>
+          <a class="header__link" href="#equipe">Equipe</a>
+          <a class="header__link" href="#galeria">Galeria</a>
+          <a class="header__link" href="#avaliacoes">Avaliações</a>
+          <a class="header__link" href="#instagram">Instagram</a>
+        </nav>
+
+        <div class="header__acoes">
+          <a class="btn btn--primario" href="#" data-booksy-link target="_blank" rel="noopener">Agendar</a>
+          <button
+            class="header__menu-btn"
+            type="button"
+            data-menu-btn
+            aria-expanded="false"
+            aria-controls="menu-mobile"
+            aria-label="Abrir menu"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="menu-mobile" id="menu-mobile" data-menu-mobile>
+      <a href="#inicio">Início</a>
+      <a href="#sobre">A The Felix</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#avaliacoes">Avaliações</a>
+      <a href="#instagram">Instagram</a>
+      <a class="btn btn--primario menu-mobile__cta" href="#" data-booksy-link target="_blank" rel="noopener">
+        Agendar no Booksy
+      </a>
+    </div>
+
+    <main id="conteudo">
+      <!-- ================== HERO ================== -->
+      <section class="hero" id="inicio">
+        <div class="hero__midia" data-parallax>
+          <img
+            src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&fm=webp&q=70&w=1920"
+            alt="Barbeiro finalizando a barba de um cliente com navalha em ambiente escuro"
+            width="1920"
+            height="1280"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
+        <div class="hero__overlay"></div>
+
+        <div class="container hero__conteudo">
+          <p class="hero__selo">
+            <span data-nota>5.0</span> no Booksy · <span data-total-avaliacoes>150</span> avaliações
+          </p>
+
+          <h1 class="titulo-xl hero__titulo">
+            <span><em>Seu cabelo.</em></span>
+            <span><em>Sua barba.</em></span>
+            <span><em>Seu estilo.</em></span>
+          </h1>
+
+          <p class="hero__sub">
+            The Felix Barbearia — cortes, barba e acabamento no Centro de Araraquara.
+          </p>
+
+          <div class="grupo-cta hero__cta" data-hero-cta>
+            <a class="btn btn--primario btn--grande" href="#" data-booksy-link target="_blank" rel="noopener">
+              Agendar agora
+            </a>
+            <a class="btn btn--secundario btn--grande" href="#" data-whatsapp-link target="_blank" rel="noopener">
+              Falar no WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <span class="hero__scroll" aria-hidden="true">Role</span>
+      </section>
+
+      <!-- ================== FAIXA DE IDENTIDADE ================== -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__trilho" data-marquee>
+          <span class="marquee__item">The Felix</span>
+          <span class="marquee__item">Barba</span>
+          <span class="marquee__item">Cabelo</span>
+          <span class="marquee__item">Estilo</span>
+          <span class="marquee__item">Experiência</span>
+          <span class="marquee__item">Araraquara</span>
+        </div>
+      </div>
+
+      <!-- ================== NÃO É SÓ UM CORTE ================== -->
+      <section id="sobre">
+        <div class="container sobre__grade">
+          <div class="sobre__texto" data-reveal>
+            <p class="rotulo">A The Felix</p>
+            <h2 class="titulo-lg">Não é só um corte.</h2>
+
+            <div class="texto-intro" style="margin-top: 1.5rem">
+              <p>
+                É olhar no espelho e gostar do que vê. É sair daqui com a barba no lugar, o
+                acabamento certo e a cabeça erguida.
+              </p>
+              <p>
+                Cada cabelo tem um jeito. Cada rosto pede um desenho. Na The Felix o barbeiro
+                olha para o seu antes de ligar a máquina — e isso muda o resultado.
+              </p>
+            </div>
+
+            <div class="sobre__numeros">
+              <div>
+                <p class="sobre__numero"><span data-nota>5.0</span></p>
+                <p class="sobre__numero-legenda">Nota no Booksy</p>
+              </div>
+              <div>
+                <p class="sobre__numero"><span data-total-avaliacoes>150</span></p>
+                <p class="sobre__numero-legenda">Avaliações de clientes</p>
+              </div>
+              <div>
+                <p class="sobre__numero">3</p>
+                <p class="sobre__numero-legenda">Barbeiros na equipe</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sobre__fotos" data-reveal>
+            <figure class="sobre__foto sobre__foto--alta">
+              <img data-img-sobre-principal src="" alt="" width="900" height="1380" loading="lazy" decoding="async" />
+            </figure>
+            <figure class="sobre__foto sobre__foto--baixa">
+              <img data-img-sobre-topo src="" alt="" width="600" height="450" loading="lazy" decoding="async" />
+            </figure>
+            <figure class="sobre__foto sobre__foto--baixa">
+              <img data-img-sobre-baixo src="" alt="" width="600" height="450" loading="lazy" decoding="async" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================== QUAL É A SUA VIBE ================== -->
+      <section class="secao-alt" id="vibe">
+        <div class="container">
+          <div class="secao-cabecalho" data-reveal>
+            <p class="rotulo">Escolha seu estilo</p>
+            <h2 class="titulo-lg">Qual é a sua vibe?</h2>
+            <p class="texto-intro" style="margin-top: 1rem">
+              Passe pelos estilos e veja o resultado. Não sabe o nome do que você quer? Traz a
+              referência que a gente resolve.
+            </p>
+          </div>
+
+          <div class="vibe__grade">
+            <div class="vibe__lista" data-vibe-lista data-reveal></div>
+            <div class="vibe__visor" data-vibe-visor data-reveal></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================== SERVIÇOS ================== -->
+      <section id="servicos">
+        <div class="container">
+          <div class="secao-cabecalho" data-reveal>
+            <p class="rotulo">Serviços e preços</p>
+            <h2 class="titulo-lg">Tudo na mesa,<br />sem surpresa.</h2>
+            <p class="texto-intro" style="margin-top: 1rem">
+              Preço e duração de cada serviço, do jeito que aparecem no Booksy. Escolha o seu e
+              agende em segundos.
+            </p>
+          </div>
+
+          <div data-reveal>
+            <div class="tabs__lista" role="tablist" aria-label="Categorias de serviços" data-tabs-lista></div>
+            <div data-tabs-paineis></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================== EQUIPE ================== -->
+      <section class="secao-alt" id="equipe">
+        <div class="container">
+          <div class="secao-cabecalho" data-reveal>
+            <p class="rotulo">A equipe</p>
+            <h2 class="titulo-lg">Quem faz a<br />The Felix acontecer.</h2>
+            <p class="texto-intro" style="margin-top: 1rem">
+              Três barbeiros, estilos diferentes, o mesmo cuidado com o seu visual. Escolha com
+              quem você quer cortar na hora de agendar.
+            </p>
+          </div>
+
+          <div class="equipe__grade" data-equipe-grade></div>
+        </div>
+      </section>
+
+      <!-- ================== BOOKSY 24/7 ================== -->
+      <section class="booksy" id="agendar">
+        <div class="container booksy__grade">
+          <div data-reveal>
+            <p class="rotulo">Agendamento online</p>
+            <h2 class="titulo-lg">Sua próxima marcação está a um clique.</h2>
+            <p class="texto-intro" style="margin-top: 1.25rem">
+              Escolha o serviço, veja os horários livres e confirme pelo Booksy. Sem mandar
+              mensagem perguntando se tem vaga, sem esperar resposta.
+            </p>
+
+            <div class="grupo-cta" style="margin-top: 2rem">
+              <a class="btn btn--primario btn--grande" href="#" data-booksy-link target="_blank" rel="noopener">
+                Reservar meu horário
+              </a>
+            </div>
+
+            <p class="booksy__disponivel">
+              <span class="booksy__ponto" aria-hidden="true"></span>
+              Agendamento online disponível a qualquer hora, inclusive fora do horário da loja.
+            </p>
+          </div>
+
+          <div class="booksy__mockup" data-reveal aria-hidden="true">
+            <span class="booksy__mockup-notch"></span>
+            <div class="booksy__mockup-tela">
+              <p class="booksy__mockup-topo">Escolha o horário</p>
+              <div class="booksy__mockup-linha">
+                <span>Cabelo + Barba</span><strong>R$ 80</strong>
+              </div>
+              <div class="booksy__mockup-linha"><span>Hoje</span><span>14:30</span></div>
+              <div class="booksy__mockup-linha booksy__mockup-linha--ativa">
+                <span>Hoje</span><strong>16:00</strong>
+              </div>
+              <div class="booksy__mockup-linha"><span>Hoje</span><span>17:30</span></div>
+              <div class="booksy__mockup-linha"><span>Amanhã</span><span>09:00</span></div>
+              <p class="booksy__mockup-btn">Confirmar</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================== GALERIA ================== -->
+      <section id="galeria">
+        <div class="container">
+          <div class="secao-cabecalho" data-reveal>
+            <p class="rotulo">Galeria</p>
+            <h2 class="titulo-lg">O resultado fala por si.</h2>
+          </div>
+
+          <div class="galeria__grid" data-galeria-grid></div>
+        </div>
+      </section>
+
+      <!-- ================== AVALIAÇÕES ================== -->
+      <section class="secao-alt" id="avaliacoes">
+        <div class="container">
+          <div class="avaliacoes__topo" data-reveal>
+            <div>
+              <p class="rotulo">Avaliações</p>
+              <h2 class="titulo-lg">Quem vai na<br />The Felix, volta.</h2>
+            </div>
+
+            <div class="avaliacoes__nota">
+              <span class="avaliacoes__numero" data-nota>5.0</span>
+              <span class="avaliacoes__numero-sufixo">
+                de média em <span data-total-avaliacoes>150</span> avaliações no Booksy
+              </span>
+            </div>
+          </div>
+
+          <div class="carrossel" data-reveal>
+            <div class="carrossel__trilho" data-carrossel-trilho tabindex="0" role="region" aria-label="Depoimentos de clientes"></div>
+
+            <div class="carrossel__controles">
+              <button class="carrossel__btn" type="button" data-carrossel-anterior aria-label="Depoimento anterior">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M19 12H5M11 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <button class="carrossel__btn" type="button" data-carrossel-proximo aria-label="Próximo depoimento">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================== INSTAGRAM ================== -->
+      <section id="instagram">
+        <div class="container">
+          <div class="instagram__topo" data-reveal>
+            <div>
+              <p class="rotulo">Instagram</p>
+              <h2 class="titulo-lg">A The Felix também<br />acontece por aqui.</h2>
+            </div>
+            <a class="instagram__handle" href="#" data-instagram-link target="_blank" rel="noopener">
+              <span data-instagram-handle>@thefelixbarbearia</span>
+            </a>
+          </div>
+
+          <div class="instagram__grid" data-instagram-grid></div>
+
+          <div class="grupo-cta" style="margin-top: 2rem">
+            <a class="btn btn--secundario" href="#" data-instagram-link target="_blank" rel="noopener">
+              Seguir no Instagram
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================== FAQ ================== -->
+      <section class="secao-alt" id="faq">
+        <div class="container">
+          <div class="secao-cabecalho" data-reveal>
+            <p class="rotulo">Dúvidas</p>
+            <h2 class="titulo-lg">Antes de agendar.</h2>
+          </div>
+
+          <div class="faq__lista" data-reveal>
+            <div class="faq__item">
+              <h3>
+                <button class="faq__pergunta" type="button" data-faq-pergunta aria-expanded="false" aria-controls="faq-1">
+                  Preciso agendar ou posso chegar direto?
+                  <span class="faq__pergunta-icone" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="faq__resposta" id="faq-1">
+                <p>
+                  O agendamento pelo Booksy garante o seu horário e evita espera. Você escolhe o
+                  serviço, o profissional e o horário em poucos toques, a qualquer hora do dia.
+                  Quem chega sem agendar é atendido conforme a disponibilidade do momento.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <h3>
+                <button class="faq__pergunta" type="button" data-faq-pergunta aria-expanded="false" aria-controls="faq-2">
+                  Quanto custa um corte na The Felix Barbearia?
+                  <span class="faq__pergunta-icone" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="faq__resposta" id="faq-2">
+                <p>
+                  O corte de cabelo custa R$ 45 e leva cerca de 40 minutos. A barba também custa
+                  R$ 45. O combo cabelo e barba sai por R$ 80 e o combo completo com sobrancelha
+                  por R$ 92. Serviços de acabamento começam em R$ 15.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <h3>
+                <button class="faq__pergunta" type="button" data-faq-pergunta aria-expanded="false" aria-controls="faq-3">
+                  Onde fica a The Felix Barbearia?
+                  <span class="faq__pergunta-icone" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="faq__resposta" id="faq-3">
+                <p>
+                  A The Felix Barbearia fica na Rua Gonçalves Dias, 367, no Centro de Araraquara,
+                  São Paulo, CEP 14801-290.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <h3>
+                <button class="faq__pergunta" type="button" data-faq-pergunta aria-expanded="false" aria-controls="faq-4">
+                  Qual o horário de funcionamento?
+                  <span class="faq__pergunta-icone" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="faq__resposta" id="faq-4">
+                <p>
+                  Segunda-feira das 14h às 19h30, de terça a sexta-feira das 9h às 20h e aos
+                  sábados das 9h às 18h. Domingo não abrimos. O agendamento pelo Booksy fica
+                  disponível 24 horas por dia.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <h3>
+                <button class="faq__pergunta" type="button" data-faq-pergunta aria-expanded="false" aria-controls="faq-5">
+                  Posso escolher com qual barbeiro quero cortar?
+                  <span class="faq__pergunta-icone" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="faq__resposta" id="faq-5">
+                <p>
+                  Sim. A equipe é formada por Lucas Felix, Otavio Augusto e Carlos Eduardo, e você
+                  escolhe o profissional na hora de agendar pelo Booksy.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <h3>
+                <button class="faq__pergunta" type="button" data-faq-pergunta aria-expanded="false" aria-controls="faq-6">
+                  Vocês atendem quem nunca foi na barbearia?
+                  <span class="faq__pergunta-icone" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="faq__resposta" id="faq-6">
+                <p>
+                  Sim. Se você ainda não sabe qual corte combina com você, é só contar como
+                  costuma usar o cabelo que o barbeiro sugere o que funciona melhor para o seu
+                  tipo de fio e formato de rosto.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================== LOCALIZAÇÃO ================== -->
+      <section id="localizacao">
+        <div class="container">
+          <div class="secao-cabecalho" data-reveal>
+            <p class="rotulo">Onde estamos</p>
+            <h2 class="titulo-lg">Encontre a The Felix.</h2>
+          </div>
+
+          <div class="localizacao__grade">
+            <div class="localizacao__info" data-reveal>
+              <div class="localizacao__bloco">
+                <h3>Endereço</h3>
+                <p>
+                  <span data-endereco-rua></span><br />
+                  <span data-endereco-bairro></span><br />
+                  <span data-endereco-cep></span>
+                </p>
+              </div>
+
+              <div class="localizacao__bloco">
+                <h3>Horários</h3>
+                <ul class="horario" data-horario-lista></ul>
+              </div>
+
+              <div class="localizacao__bloco">
+                <h3>Contato</h3>
+                <p><a href="#" data-tel-link data-telefone-texto></a></p>
+              </div>
+
+              <div class="grupo-cta">
+                <a class="btn btn--secundario" href="#" data-direcoes-link target="_blank" rel="noopener">
+                  Como chegar
+                </a>
+                <a class="btn btn--primario" href="#" data-booksy-link target="_blank" rel="noopener">Agendar</a>
+              </div>
+            </div>
+
+            <div class="mapa-facade" data-mapa-facade data-reveal>
+              <img data-img-mapa-facade src="" alt="" width="900" height="675" loading="lazy" decoding="async" />
+              <button class="mapa-facade__btn" type="button" data-mapa-btn>
+                <span class="mapa-facade__icone" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z" stroke-linecap="round" stroke-linejoin="round" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </span>
+                <span class="mapa-facade__texto">Ver no mapa</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================== CTA FINAL ================== -->
+      <section class="cta-final" data-cta-final>
+        <div class="cta-final__bg">
+          <img data-img-cta src="" alt="" width="1600" height="900" loading="lazy" decoding="async" />
+        </div>
+        <div class="cta-final__overlay"></div>
+
+        <div class="container">
+          <div class="cta-final__conteudo" data-reveal>
+            <h2 class="titulo-xl">Seu próximo corte<br />começa aqui.</h2>
+            <p class="cta-final__texto">
+              Escolha o serviço, encontre o melhor horário e venha viver a experiência The Felix.
+            </p>
+
+            <div class="grupo-cta">
+              <a class="btn btn--primario btn--grande" href="#" data-booksy-link target="_blank" rel="noopener">
+                Agendar pelo Booksy
+              </a>
+              <a class="btn btn--secundario btn--grande" href="#" data-whatsapp-link target="_blank" rel="noopener">
+                Falar no WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================== FOOTER ================== -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__topo">
+          <div>
+            <div class="footer__marca">
+              <img src="assets/images/logo/logo-the-felix-96.png" alt="" width="96" height="96" loading="lazy" />
+              <span class="footer__marca-texto" data-nome-negocio>The Felix Barbearia</span>
+            </div>
+            <p class="footer__slogan" data-slogan>Seu cabelo. Sua barba. Seu estilo.</p>
+          </div>
+
+          <div class="footer__col">
+            <h3>Navegação</h3>
+            <ul>
+              <li><a href="#inicio">Início</a></li>
+              <li><a href="#servicos">Serviços</a></li>
+              <li><a href="#equipe">Equipe</a></li>
+              <li><a href="#galeria">Galeria</a></li>
+              <li><a href="#avaliacoes">Avaliações</a></li>
+            </ul>
+          </div>
+
+          <div class="footer__col">
+            <h3>Agendar e falar</h3>
+            <ul>
+              <li><a href="#" data-booksy-link target="_blank" rel="noopener">Booksy</a></li>
+              <li><a href="#" data-whatsapp-link target="_blank" rel="noopener">WhatsApp</a></li>
+              <li><a href="#" data-instagram-link target="_blank" rel="noopener">Instagram</a></li>
+              <li><a href="#" data-facebook-link target="_blank" rel="noopener">Facebook</a></li>
+            </ul>
+          </div>
+
+          <div class="footer__col">
+            <h3>Contato</h3>
+            <ul>
+              <li>
+                <address>
+                  <span data-endereco-rua></span><br />
+                  <span data-endereco-bairro></span>
+                </address>
+              </li>
+              <li><a href="#" data-tel-link data-telefone-texto></a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer__base">
+          <p>© <span data-ano-atual></span> The Felix Barbearia. Todos os direitos reservados.</p>
+          <p>Desenvolvido por <span data-dev-nome></span></p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ================== BARRA FIXA MOBILE ================== -->
+    <div class="barra-fixa" data-barra-fixa>
+      <a class="btn btn--primario" href="#" data-booksy-link target="_blank" rel="noopener">Agendar no Booksy</a>
+      <a
+        class="btn btn--secundario"
+        href="#"
+        data-whatsapp-link
+        target="_blank"
+        rel="noopener"
+        aria-label="Falar no WhatsApp"
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path
+            d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z M12 2a10 10 0 00-8.6 15.06L2 22l5.06-1.33A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.18-1.14l-.3-.18-3 .79.8-2.93-.2-.3A8.2 8.2 0 1112 20.2z"
+          />
+        </svg>
+      </a>
+    </div>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/services.js"></script>
+    <script src="assets/js/reviews.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/animations.js"></script>
+  </body>
+</html>

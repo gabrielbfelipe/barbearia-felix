@@ -1,0 +1,51 @@
+/* Faixa de identidade em movimento contínuo — assinatura visual da marca. */
+
+.marquee {
+  overflow: hidden;
+  background: var(--cor-azul);
+  padding-block: 0.85rem;
+  border-block: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.marquee__trilho {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+.marquee__item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-family: var(--fonte-display);
+  font-weight: 800;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem); /* >=19.2px: large text, 3:1 basta */
+  text-transform: uppercase;
+  color: var(--cor-preto);
+  padding-inline: 1.5rem;
+  white-space: nowrap;
+}
+
+.marquee__item::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cor-preto);
+  opacity: 0.5;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__trilho {
+    animation: none;
+  }
+}

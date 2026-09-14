@@ -1,0 +1,123 @@
+/* Carrossel de avaliações — navegação por teclado, sem libs externas. */
+
+.avaliacoes__topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: var(--espaco-lg);
+}
+
+.avaliacoes__nota {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.avaliacoes__numero {
+  font-family: var(--fonte-display);
+  font-weight: 900;
+  font-size: clamp(3.5rem, 8vw, 5.5rem);
+  line-height: 1;
+  color: var(--cor-azul-claro);
+}
+
+.avaliacoes__numero-sufixo {
+  color: var(--cor-texto-suave);
+  font-size: 1rem;
+  max-width: 16ch;
+  line-height: 1.35;
+}
+
+.carrossel {
+  position: relative;
+}
+
+.carrossel__trilho {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+}
+
+.carrossel__trilho::-webkit-scrollbar {
+  display: none;
+}
+
+.depoimento {
+  scroll-snap-align: start;
+  flex: 0 0 min(340px, 85vw);
+  border: 1px solid var(--cor-borda);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: var(--cor-preto-2);
+}
+
+.depoimento__estrelas {
+  display: flex;
+  gap: 3px;
+  color: var(--cor-azul-claro);
+}
+
+.depoimento__estrelas svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+}
+
+.depoimento__texto {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  flex-grow: 1;
+}
+
+.depoimento__autor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  border-top: 1px solid var(--cor-borda);
+  padding-top: 1rem;
+}
+
+.depoimento__nome {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.depoimento__meta {
+  font-size: 0.8rem;
+  color: var(--cor-texto-fraco);
+}
+
+.carrossel__controles {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.carrossel__btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--rapida), transform var(--rapida);
+}
+
+.carrossel__btn:hover,
+.carrossel__btn:focus-visible {
+  border-color: var(--cor-azul-claro);
+  color: var(--cor-azul-claro);
+}
+
+.carrossel__btn svg {
+  width: 18px;
+  height: 18px;
+}

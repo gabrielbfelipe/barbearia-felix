@@ -1,0 +1,70 @@
+/* FAQ — acordeão simples, alimenta o FAQPage do schema. */
+
+.faq__lista {
+  border-top: 1px solid var(--cor-borda);
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.faq__pergunta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.35rem 0;
+  text-align: left;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.faq__pergunta-icone {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  position: relative;
+}
+
+.faq__pergunta-icone::before,
+.faq__pergunta-icone::after {
+  content: "";
+  position: absolute;
+  background: var(--cor-azul-claro);
+  transition: transform var(--padrao);
+}
+
+.faq__pergunta-icone::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.faq__pergunta-icone::after {
+  left: 50%;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.faq__pergunta[aria-expanded="true"] .faq__pergunta-icone::after {
+  transform: translateX(-50%) rotate(90deg);
+  opacity: 0;
+}
+
+.faq__resposta {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height var(--padrao);
+}
+
+.faq__resposta p {
+  padding-bottom: 1.35rem;
+  color: var(--cor-texto-suave);
+  max-width: 62ch;
+  line-height: 1.6;
+}

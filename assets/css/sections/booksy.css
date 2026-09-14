@@ -1,0 +1,109 @@
+/* Seção Booksy 24/7 — o "portal de agendamento". */
+
+.booksy {
+  background: var(--overlay-cta);
+  border-block: 1px solid var(--cor-borda);
+}
+
+.booksy__grade {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espaco-xl);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .booksy__grade {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+}
+
+.booksy__disponivel {
+  margin-top: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.booksy__ponto {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cor-azul-claro);
+  box-shadow: 0 0 0 4px var(--cor-azul-fumê);
+  flex-shrink: 0;
+}
+
+.booksy__mockup {
+  position: relative;
+  margin-inline: auto;
+  width: min(300px, 100%);
+  aspect-ratio: 9 / 18.5;
+  border-radius: 2.25rem;
+  border: 8px solid var(--cor-grafite-claro);
+  background: var(--cor-preto);
+  overflow: hidden;
+  box-shadow: var(--sombra-card);
+}
+
+.booksy__mockup-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45%;
+  height: 22px;
+  background: var(--cor-grafite-claro);
+  border-radius: 0 0 14px 14px;
+  z-index: 2;
+}
+
+.booksy__mockup-tela {
+  position: absolute;
+  inset: 0;
+  padding: 2.75rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.booksy__mockup-topo {
+  font-family: var(--fonte-display);
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.booksy__mockup-linha {
+  background: var(--cor-grafite);
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  padding: 0.6rem 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.7rem;
+}
+
+.booksy__mockup-linha strong {
+  font-size: 0.75rem;
+}
+
+.booksy__mockup-linha--ativa {
+  border-color: var(--cor-azul);
+  background: var(--cor-azul-fumê);
+}
+
+.booksy__mockup-btn {
+  margin-top: auto;
+  background: var(--cor-azul);
+  color: var(--cor-branco);
+  text-align: center;
+  border-radius: var(--raio-pill);
+  padding: 0.7rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+}

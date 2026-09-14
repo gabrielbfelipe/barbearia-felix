@@ -1,0 +1,92 @@
+/* "Qual é a sua vibe?" — galeria interativa, o visitante troca a imagem. */
+
+.vibe__grade {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espaco-lg);
+  align-items: stretch;
+}
+
+@media (min-width: 900px) {
+  .vibe__grade {
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: var(--espaco-xl);
+  }
+}
+
+.vibe__lista {
+  display: flex;
+  flex-direction: column;
+}
+
+.vibe__item {
+  width: 100%;
+  text-align: left;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--cor-borda);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: padding-left var(--padrao);
+}
+
+.vibe__item-nome {
+  font-family: var(--fonte-display);
+  font-weight: 800;
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+  text-transform: uppercase;
+  color: var(--cor-texto-suave);
+  transition: color var(--padrao);
+}
+
+.vibe__item-num {
+  font-size: 0.8rem;
+  color: var(--cor-texto-fraco);
+  flex-shrink: 0;
+}
+
+.vibe__item:hover,
+.vibe__item:focus-visible,
+.vibe__item.is-ativo {
+  padding-left: 0.75rem;
+}
+
+.vibe__item:hover .vibe__item-nome,
+.vibe__item:focus-visible .vibe__item-nome,
+.vibe__item.is-ativo .vibe__item-nome {
+  color: var(--cor-branco);
+}
+
+.vibe__item.is-ativo {
+  border-bottom-color: var(--cor-azul);
+}
+
+.vibe__visor {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--cor-grafite);
+}
+
+@media (min-width: 900px) {
+  .vibe__visor {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 460px;
+  }
+}
+
+.vibe__visor img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.vibe__visor img.is-ativa {
+  opacity: 1;
+}

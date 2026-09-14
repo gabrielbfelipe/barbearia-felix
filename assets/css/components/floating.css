@@ -1,0 +1,48 @@
+/* Barra fixa mobile — dois CTAs sempre acessíveis abaixo de 1024px. */
+
+.barra-fixa {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 95;
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.7rem 0.85rem calc(0.7rem + env(safe-area-inset-bottom));
+  background: rgba(8, 9, 11, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--cor-borda);
+
+  /* Começa escondida: enquanto o Hero (que já tem os dois CTAs) está na
+     tela, a barra repetiria os mesmos botões e ainda cobriria parte deles. */
+  transform: translateY(110%);
+  transition: transform var(--padrao);
+}
+
+.barra-fixa.is-visivel {
+  transform: translateY(0);
+}
+
+@media (min-width: 1024px) {
+  .barra-fixa {
+    display: none;
+  }
+}
+
+.barra-fixa .btn {
+  flex: 1;
+  padding-block: 0.85rem;
+  font-size: 0.9rem;
+}
+
+.barra-fixa .btn--secundario {
+  flex: 0 0 auto;
+  width: 52px;
+  padding: 0.85rem;
+}
+
+.barra-fixa .btn--secundario svg {
+  width: 20px;
+  height: 20px;
+}

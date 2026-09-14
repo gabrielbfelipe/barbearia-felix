@@ -1,0 +1,104 @@
+/* Tipografia de escala, seções e utilitários de layout compartilhados. */
+
+h1,
+h2,
+h3 {
+  font-family: var(--fonte-display);
+  letter-spacing: -0.01em;
+}
+
+.titulo-xl {
+  font-family: var(--fonte-display);
+  font-weight: 900;
+  font-stretch: 85%;
+  font-size: clamp(2.75rem, 8vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.titulo-lg {
+  font-family: var(--fonte-display);
+  font-weight: 800;
+  font-stretch: 88%;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+
+.titulo-md {
+  font-family: var(--fonte-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.texto-intro {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: var(--cor-texto-suave);
+  line-height: 1.6;
+  max-width: 42ch;
+}
+
+.rotulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--fonte-corpo);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--cor-azul-claro);
+}
+
+.rotulo::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--cor-azul);
+  flex-shrink: 0;
+}
+
+section {
+  padding-block: var(--espaco-xxl);
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  section {
+    padding-block: var(--espaco-xl);
+  }
+}
+
+.secao-alt {
+  background: var(--cor-preto-2);
+}
+
+.secao-cabecalho {
+  margin-bottom: var(--espaco-lg);
+}
+
+.grade-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espaco-lg);
+}
+
+@media (min-width: 900px) {
+  .grade-2 {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--espaco-xl);
+  }
+}
+
+.linha-divisoria {
+  height: 1px;
+  background: var(--cor-borda);
+  border: none;
+  margin-block: var(--espaco-lg);
+}
+
+main {
+  display: block;
+}

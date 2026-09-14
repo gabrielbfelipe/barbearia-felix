@@ -1,0 +1,156 @@
+/* Tabs de serviços — Cabelo / Barba / Combos / Estética. */
+
+.tabs__lista {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: var(--espaco-lg);
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+@media (max-width: 767px) {
+  /* No celular as quatro categorias não cabem em uma linha; rolar na
+     horizontal é mais limpo do que deixar "Estética" sozinha embaixo. */
+  .tabs__lista {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tabs__lista::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tabs__btn {
+    white-space: nowrap;
+    margin-right: 1.25rem;
+  }
+}
+
+.tabs__btn {
+  padding: 0.85rem 0.25rem;
+  margin-right: 1.75rem;
+  font-family: var(--fonte-display);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--cor-texto-suave);
+  position: relative;
+  transition: color var(--rapida);
+}
+
+.tabs__btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 2px;
+  background: var(--cor-azul);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--padrao);
+}
+
+.tabs__btn:hover {
+  color: var(--cor-branco);
+}
+
+.tabs__btn[aria-selected="true"] {
+  color: var(--cor-branco);
+}
+
+.tabs__btn[aria-selected="true"]::after {
+  transform: scaleX(1);
+}
+
+.tabs__painel {
+  display: none;
+}
+
+.tabs__painel.is-ativo {
+  display: block;
+}
+
+.lista-servicos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--cor-borda);
+  border: 1px solid var(--cor-borda);
+}
+
+@media (min-width: 700px) {
+  .lista-servicos {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.servico {
+  background: var(--cor-preto);
+  padding: 1.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: background var(--padrao);
+}
+
+.servico:hover,
+.servico:focus-within {
+  background: var(--cor-preto-2);
+}
+
+.servico__info {
+  min-width: 0;
+}
+
+.servico__nome {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.servico__duracao {
+  color: var(--cor-texto-fraco);
+  font-size: 0.825rem;
+  margin-top: 0.2rem;
+}
+
+.servico__acao {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.servico__preco {
+  font-family: var(--fonte-display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--cor-azul-claro);
+  white-space: nowrap;
+}
+
+.servico__btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--cor-borda);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--rapida), border-color var(--rapida), transform var(--rapida);
+}
+
+.servico__btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.servico__btn:hover,
+.servico__btn:focus-visible {
+  background: var(--cor-azul);
+  border-color: var(--cor-azul);
+  transform: scale(1.08);
+}

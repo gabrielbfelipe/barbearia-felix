@@ -1,0 +1,61 @@
+/* Design tokens — direção "Urban Premium Barber": preto frio (base azulada),
+   azul elétrico como assinatura, tipografia condensada de impacto.
+   Ver plano: preto quente + dourado é o Renan; aqui é o oposto deliberado. */
+
+:root {
+  /* Cores — fundo (preto frio, nunca marrom) */
+  --cor-preto: #08090b;
+  --cor-preto-2: #101216;
+  --cor-grafite: #1a1d23;
+  --cor-grafite-claro: #262a33;
+
+  /* Cores — azul Felix (assinatura da marca, não decoração) */
+  --cor-azul: #0c5cff;
+  --cor-azul-hover: #2f74ff;
+  --cor-azul-claro: #5b9bff;
+  --cor-azul-fumê: rgba(12, 92, 255, 0.14);
+
+  /* Cores — texto */
+  --cor-branco: #f7f8fa;
+  --cor-texto-suave: #9aa3b2;
+  --cor-texto-fraco: #7a8397; /* 4.9:1 sobre --cor-preto-2 (AA) */
+
+  --cor-borda: rgba(247, 248, 250, 0.1);
+  --cor-borda-azul: rgba(12, 92, 255, 0.35);
+
+  /* Escurece as duas pontas: o topo garante que o header continue legível
+     sobre qualquer foto, o rodapé sustenta o título do Hero. O miolo fica
+     mais claro para a imagem respirar. */
+  --overlay-hero: linear-gradient(
+    180deg,
+    rgba(8, 9, 11, 0.8) 0%,
+    rgba(8, 9, 11, 0.42) 26%,
+    rgba(8, 9, 11, 0.6) 60%,
+    rgba(8, 9, 11, 0.97) 100%
+  );
+  --overlay-cta: linear-gradient(160deg, #0c1220 0%, #08090b 70%);
+  --sombra-card: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+  --sombra-azul: 0 20px 40px -18px rgba(12, 92, 255, 0.45);
+
+  /* Tipografia */
+  --fonte-display: "Archivo", "Arial Narrow", sans-serif;
+  --fonte-corpo: "Inter", -apple-system, sans-serif;
+
+  /* Espaçamento */
+  --espaco-xs: 0.5rem;
+  --espaco-sm: 1rem;
+  --espaco-md: 1.5rem;
+  --espaco-lg: 2.5rem;
+  --espaco-xl: 4.5rem;
+  --espaco-xxl: 8rem;
+
+  /* Layout */
+  --largura-maxima: 1240px;
+  --raio: 2px;
+  --raio-pill: 999px;
+
+  /* Transições */
+  --rapida: 0.18s ease;
+  --padrao: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  --lenta: 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}

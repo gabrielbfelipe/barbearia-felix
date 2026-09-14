@@ -1,0 +1,13 @@
+/* "Quem faz a The Felix acontecer" — grade de barbeiros. */
+
+.equipe__grade {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .equipe__grade {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

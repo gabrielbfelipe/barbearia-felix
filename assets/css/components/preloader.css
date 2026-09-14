@@ -1,0 +1,64 @@
+/* Preloader — preto, logo, linha azul atravessando a tela, saída rápida. */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  background: var(--cor-preto);
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.preloader__logo {
+  width: clamp(120px, 20vw, 180px);
+  height: auto;
+  opacity: 0;
+  animation: preloader-logo 0.55s ease forwards 0.05s;
+}
+
+.preloader__linha {
+  width: 0;
+  height: 2px;
+  background: var(--cor-azul);
+  box-shadow: 0 0 24px 2px var(--cor-azul);
+  animation: preloader-linha 0.45s cubic-bezier(0.65, 0, 0.35, 1) forwards 0.4s;
+}
+
+.preloader--sair {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes preloader-logo {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes preloader-linha {
+  from {
+    width: 0;
+  }
+  to {
+    width: min(280px, 60vw);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader__logo,
+  .preloader__linha {
+    animation: none;
+    opacity: 1;
+    width: min(280px, 60vw);
+  }
+}

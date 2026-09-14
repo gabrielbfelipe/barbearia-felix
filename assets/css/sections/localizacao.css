@@ -1,0 +1,125 @@
+/* Localização — facade de mapa, iframe só nasce no clique. */
+
+.localizacao__grade {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espaco-lg);
+}
+
+@media (min-width: 900px) {
+  .localizacao__grade {
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: var(--espaco-xl);
+  }
+}
+
+.localizacao__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.localizacao__bloco h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--cor-texto-fraco);
+  margin-bottom: 0.4rem;
+  font-family: var(--fonte-corpo);
+  font-weight: 700;
+}
+
+.localizacao__bloco p {
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.mapa-facade {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--cor-grafite);
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+}
+
+@media (min-width: 900px) {
+  .mapa-facade {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 380px;
+  }
+}
+
+.mapa-facade img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mapa-facade iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.mapa-facade__btn {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  background: rgba(8, 9, 11, 0.55);
+  color: var(--cor-branco);
+  transition: background var(--rapida);
+}
+
+.mapa-facade__btn:hover,
+.mapa-facade__btn:focus-visible {
+  background: rgba(8, 9, 11, 0.7);
+}
+
+.mapa-facade__icone {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--cor-azul);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mapa-facade__icone svg {
+  width: 24px;
+  height: 24px;
+}
+
+.mapa-facade__texto {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.horario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.horario__linha {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.95rem;
+  color: var(--cor-texto-suave);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.horario__faixa {
+  color: var(--cor-branco);
+  font-weight: 600;
+  white-space: nowrap;
+}
